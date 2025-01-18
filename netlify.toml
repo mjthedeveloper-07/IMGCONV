@@ -1,5 +1,5 @@
 [build.environment]
-PYTHON_VERSION = "3.13.0"  # Update to a valid version
+PYTHON_VERSION = "3.11.5"  # Replace with the latest stable Python version
 
 [build]
   functions = "functions"
@@ -8,4 +8,3 @@ PYTHON_VERSION = "3.13.0"  # Update to a valid version
 
 [functions]
   directory = "functions"
-  

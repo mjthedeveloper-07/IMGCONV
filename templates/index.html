@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>imgconv - Image Converter</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="imgconv: Convert images to various formats like JPEG, PNG, GIF, and more. Optimize and process images easily for web and mobile." />
+    <meta name="keywords" content="image converter, JPEG, PNG, GIF, optimize images, free image tools" />
+    <meta name="author" content="imgconv Team" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="imgconv - The Ultimate Image Converter" />
+    <meta property="og:description" content="Convert and optimize your images effortlessly with imgconv." />
+    <meta property="og:image" content="/assets/img/logo.png" />
+    <meta property="og:url" content="https://www.imgconv.com" />
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="/static/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/output.css" />
+    <link rel="icon" type="image/x-icon" href="/assets/img/logo.png" />
+    <link rel="stylesheet" type="text/css" href="/static/css/card.css" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+   
+    <!-- Fonts and Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* Global Styles */
+      body {
+        background: url('/static/bg.jpeg') no-repeat center center fixed; 
+        background-size: cover;
+        color: #fff;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        overflow-x: hidden;
+      }
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1, h2, h3 {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+  
+      /* Navbar */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: transparent;
+      }
+      nav a {
+        font-size: 1.2rem;
+        margin: 0 1rem;
+        position: relative;
+      }
+      nav a:hover {
+        color: #fff;
+        text-shadow: 0 0 5px #40c9ff;
+      .feature-card {
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        color: #fff;
+      }
+  
+      /* Forms and Buttons */
+      form {
+        margin: 2rem auto;
+        max-width: 400px;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+      form input, form select {
+        width: 100%;
+        padding: 10px;
+        margin: 1rem 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      }
+      form button {
+        display: inline-block;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      form button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 5px 15px rgba(64, 201, 255, 0.4);
+      }
+  
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 1rem 0;
+        font-size: 0.9rem;
+      }
+      footer a {
+        color: #40c9ff;
+        margin: 0 0.5rem;
+        font-weight: 600;
+      }
+      footer a:hover {
+        text-shadow: 0 0 5px #40c9ff;
+      }
+  
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        nav {
+          flex-direction: column;
+        }
+        form {
+          width: 90%;
+        }
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: left;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 text-gray-800" style="background: url('/static/bg.jpeg') repeat center fixed; background-size: cover; color: #fff; font-family: 'Poppins', sans-serif; margin: 0; overflow-x: hidden;">
+     <nav>
+      <a href="index.html"><img src="/assets/img/logo.png" alt="Logo" class="logo" width="50" /></a>
+       <h1 id="name">Imgconv</h1>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+    </nav>
+    <!-- Main Content -->
+    <main>
+      <h1>Welcome to imgconv</h1>
+      <div class="feature">
+        <div class="feature-card">
+          <h3>Convert Images Effortlessly</h3>
+        </div>
+      </div>
+
+      <div class="max-w-md mx-auto bg-white p-5 rounded-lg shadow-md transform transition-transform duration-500 hover:scale-105 hover:shadow-xl">
+        <form
+          action="/convert"
+          enctype="multipart/form-data"
+          method="post"
+          id="form"
+          class="space-y-4"
+        >
+          <div class="flex flex-col space-y-2">
+            <label
+              for="upload"
+              class="block text-sm font-medium text-gray-700"
+              >Choose file</label
+            >
+            <input
+              id="upload"
+              type="file"
+              onchange="readURL(this);"
+              name="image"
+              accept=".jpg, .jpeg, .png, .bmp, .eps, .gif, .im, .msp, .pcx, .ppm, .tiff, .webp, .ico, .pdf"
+              class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            />
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label
+              for="format"
+              class="block text-sm font-medium text-gray-700"
+              >Convert to</label
+            >
+            <select
+              id="format"
+              name="format"
+              class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-700"
+            >
+              <option value="BMP">BMP</option>
+              <option value="EPS">EPS</option>
+              <option value="GIF">GIF</option>
+              <option value="IM">IM</option>
+              <option value="JPEG">JPEG</option>
+              <option value="MSP">MSP</option>
+              <option value="PCX">PCX</option>
+              <option value="PNG">PNG</option>
+              <option value="PPM">PPM</option>
+              <option value="TIFF">TIFF</option>
+              <option value="WEBP">WEBP</option>
+              <option value="ICO">ICO</option>
+              <option value="PDF">PDF</option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            class="btn w-full py-2 px-4 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 hover:border-4 hover:border-blue-300 hover:py-3 hover:px-5"
+          >
+            Convert
+          </button>
+        </form>
+        <p class="text-center text-gray-500 mt-5">
+          The image uploaded will be rendered inside the box below.
+        </p>
+        <div class="mt-4">
+          <img
+            id="imageResult"
+            src="#"
+            alt=""
+            class="w-full h-auto rounded shadow-sm"
+          />
+        </div>
+      </div>
+    </div>
+     
+    <section style="color: #fff; padding: 50px 20px;">
+      <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem;">Why Choose imgconv?</h2>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+  
+        <!-- Card 1 -->
+        <div style="flex: 1; max-width: 300px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); transition: transform 0.3s;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80" height="80" fill="#40c9ff" style="margin-bottom: 1rem;">
+            <path d="M12 0a12 12 0 100 24 12 12 0 000-24zm6.75 12.375H12V6.75h6.75a5.626 5.626 0 010 11.25H12V17.25h6.75a3.375 3.375 0 100-6.75z"></path>
+          </svg>
+          <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Format Flexibility</h3>
+          <p>Convert images to various formats like PNG, JPEG, and GIF to fit your needs.</p>
+        </div>
+  
+        <!-- Card 2 -->
+        <div style="flex: 1; max-width: 300px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); transition: transform 0.3s;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80" height="80" fill="#40c9ff" style="margin-bottom: 1rem;">
+            <path d="M12 2a10 10 0 1010 10A10.011 10.011 0 0012 2zm-1 15h2v2h-2zm0-10h2v8h-2z"></path>
+          </svg>
+          <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Ease of Use</h3>
+          <p>Our intuitive interface makes it simple to upload and convert images in seconds.</p>
+        </div>
+  
+        <!-- Card 3 -->
+        <div style="flex: 1; max-width: 300px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); transition: transform 0.3s;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80" height="80" fill="#40c9ff" style="margin-bottom: 1rem;">
+            <path d="M12 2A10 10 0 102 12a10 10 0 0010-10zm3.707 6.707L11 13.414V18h2v-4.586l3.707-3.707a1 1 0 00-1.414-1.414z"></path>
+          </svg>
+          <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Quality Preservation</h3>
+          <p>Maintain the highest image quality during conversion with our advanced tools.</p>
+        </div>
+  
+      </div>
+    </section>
+
+  <!-- Footer -->
+<footer style="color: #fff; padding: 40px 20px; text-align: center;">
+  <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px;">
+
+    <!-- About Section -->
+    <div style="flex: 1; min-width: 250px;">
+      <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #40c9ff;">About imgconv</h3>
+      <p style="font-size: 0.95rem; line-height: 1.6; color: #bbb;">
+        imgconv is your go-to solution for converting images to various formats effortlessly. Optimize and process images while maintaining high quality.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div style="flex: 1; min-width: 250px;">
+      <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #40c9ff;">Quick Links</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li style="margin: 0.5rem 0;"><a href="#" style="color: #40c9ff; text-decoration: none; transition: color 0.3s;">Privacy Policy</a></li>
+        <li style="margin: 0.5rem 0;"><a href="#" style="color: #40c9ff; text-decoration: none; transition: color 0.3s;">Terms of Service</a></li>
+        <li style="margin: 0.5rem 0;"><a href="#" style="color: #40c9ff; text-decoration: none; transition: color 0.3s;">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Newsletter Section -->
+    <div style="flex: 1; min-width: 250px;">
+      <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #40c9ff;">Stay Updated</h3>
+      <p style="font-size: 0.95rem; color: #bbb; margin-bottom: 1rem;">Subscribe to our newsletter for updates on new features and tips.</p>
+      <form action="/subscribe" method="post" style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <input 
+          type="email" 
+          placeholder="Your email" 
+          required 
+          style="flex: 1; padding: 10px; border-radius: 5px; border: none; outline: none; background: rgba(255, 255, 255, 0.1); color: #fff; font-size: 0.9rem;">
+        <button 
+          type="submit" 
+          style="padding: 10px 20px; border: none; border-radius: 5px; background: #40c9ff; color: #fff; font-size: 0.9rem; cursor: pointer; transition: background 0.3s;">
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div style="margin: 30px 0; border-top: 1px solid rgba(255, 255, 255, 0.1);"></div>
+
+  <!-- Bottom Bar -->
+  <p style="font-size: 0.9rem; color: #bbb; margin-bottom: 0.5rem;">
+    &copy; 2025 imgconv. All rights reserved. 
+  </p>
+  <a href="https://github.com/15455154" target="_blank" 
+     style="display: inline-block; padding: 10px 20px; border-radius: 25px; background: linear-gradient(45deg, #40c9ff, #e81cff); 
+            color: #fff; font-size: 1rem; font-weight: bold; text-decoration: none; box-shadow: 0 4px 15px rgba(64, 201, 255, 0.4); 
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;">
+    Developed by MJ_THE_DEVELOPER
+  </a>
+</footer>
+
+
+
+    <script src="static/javascript/index.js"></script>
+  </body>
+</html>

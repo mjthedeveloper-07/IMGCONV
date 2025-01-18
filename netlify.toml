@@ -1,3 +1,6 @@
+[build.environment]
+PYTHON_VERSION = "3.9.9"  # Update to a valid version
+
 [build]
   functions = "functions"
   publish = "static"
@@ -5,3 +8,4 @@
 
 [functions]
   directory = "functions"
+  

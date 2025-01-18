@@ -11,7 +11,7 @@ imgconv is a simple image conversion web app built with Python Flask and Tailwin
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/imgconv.git
+    git clone https://github.com/15455154/IMGCONV.git
     cd imgconv
     ```
 

@@ -1,8 +1,17 @@
 {
-  "devDependencies": {
+  "name": "IMGCONV",
+  "version": "1.0.0",
+  "description": "Image conversion app",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'No build required for Flask app'",
+    "start": "python app.py"
+  },
+  "dependencies": {
+    "netlify-lambda": "^1.6.3"
     "tailwindcss": "^3.4.17"
   },
-  "scripts": {
-    "build:css": "tailwindcss -i ./static/css/tailwind.css -o ./static/css/output.css --watch"
+  "devDependencies": {
+    "netlify-cli": "^3.29.17"
   }
 }

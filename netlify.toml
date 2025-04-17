@@ -8,3 +8,6 @@ PYTHON_VERSION = "3.11.5"  # Or another valid version
 
 [functions]
   directory = "functions"
+[build]
+  publish = "build" # or "dist" if using a framework
+  command = "npm run build" # or your specific build command

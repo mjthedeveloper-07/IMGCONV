@@ -383,7 +383,7 @@
               body: JSON.stringify({ prompt }),
             });
             if (!response.ok) {
-              throw new Error("server");
+              throw new Error(`Server returned ${response.status}.`);
             }
             const data = await response.json();
             if (data.format && formatField) {
@@ -396,8 +396,8 @@
             enhanceResult.classList.remove("hidden");
           } catch (error) {
             const errorMessage =
-              error && error.message === "server"
-                ? "Server error while enhancing prompt."
+              error && error.message
+                ? error.message
                 : "Network connection failed while enhancing prompt.";
             enhanceResult.textContent = errorMessage;
             enhanceResult.classList.remove("hidden");

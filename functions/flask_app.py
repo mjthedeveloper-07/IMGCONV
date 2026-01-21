@@ -5,6 +5,8 @@ from werkzeug.serving import run_simple
 import os
 from PIL import Image
 
+from prompt_utils import recommend_settings, build_save_kwargs, PROMPT_MAX_LENGTH
+
 app = Flask(__name__)
 
 # Ensure the 'static/images' directory exists
@@ -15,10 +17,36 @@ if not os.path.exists('static/images'):
 def index():
     return render_template("index.html")
 
+@app.route("/prompt-enhance", methods=["POST"])
+def prompt_enhance():
+    data = request.get_json(silent=True) or {}
+    prompt = data.get("prompt", "")
+    if not isinstance(prompt, str):
+        return jsonify({"error": "Prompt must be text."}), 400
+    if len(prompt) > PROMPT_MAX_LENGTH:
+        return jsonify(
+            {
+                "error": f"Prompt exceeds maximum length of {PROMPT_MAX_LENGTH} characters."
+            }
+        ), 400
+    try:
+        suggestion = recommend_settings(prompt)
+    except Exception:
+        return jsonify({"error": "Unable to enhance prompt right now."}), 500
+    return jsonify(
+        {
+            "format": suggestion["format"],
+            "quality": suggestion["quality"],
+            "reason": suggestion["reason"],
+        }
+    )
+
 @app.route("/convert", methods=["POST", "GET"])
 def convert():
     if request.method == "POST":
-        file = request.files["image"]
+        file = request.files.get("image")
+        if not file:
+            return redirect("/")
         format = request.form.get("format")
         outputimage, ext = os.path.splitext(file.filename)
         format = format.lower()
@@ -26,7 +54,8 @@ def convert():
         output_path = os.path.join('static/images', outputimage)
         
         with Image.open(file) as image:
-            image.save(output_path, format=format.upper())
+            save_kwargs = build_save_kwargs(format, request.form.get("quality"))
+            image.save(output_path, format=format.upper(), **save_kwargs)
         
         image_url = url_for('static', filename='images/' + outputimage)
         return render_template("convert.html", image_url=image_url)

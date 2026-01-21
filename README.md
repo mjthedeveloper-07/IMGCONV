@@ -6,6 +6,7 @@ imgconv is a simple image conversion web app built with Python Flask and Tailwin
 - Upload images in various formats.
 - Convert images to different formats (BMP, EPS, GIF, IM, JPEG, MSP, PCX, PNG, PPM, TIFF).
 - Download the converted image.
+- Prompt enhancer suggests the best format and quality for your use case.
 
 ## Installation
 

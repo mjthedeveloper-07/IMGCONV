@@ -44,7 +44,9 @@ def prompt_enhance():
 @app.route("/convert", methods=["POST", "GET"])
 def convert():
     if request.method == "POST":
-        file = request.files["image"]
+        file = request.files.get("image")
+        if not file:
+            return redirect("/")
         format = request.form.get("format")
         outputimage, ext = os.path.splitext(file.filename)
         format = format.lower()

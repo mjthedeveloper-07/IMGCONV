@@ -147,6 +147,9 @@
     <!-- Main Content -->
     <main>
       <h1>Welcome to imgconv</h1>
+      <p class="text-center text-gray-200 max-w-2xl mx-auto mt-2">
+        Describe your goal and get an instant format recommendation—Lovable-style prompt enhancement for image conversion.
+      </p>
       <div class="feature">
         <div class="feature-card">
           <h3>Convert Images Effortlessly</h3>
@@ -161,6 +164,31 @@
           id="form"
           class="space-y-4"
         >
+          <div class="flex flex-col space-y-2">
+            <label
+              for="prompt"
+              class="block text-sm font-medium text-gray-700"
+              >Prompt enhancer</label
+            >
+            <textarea
+              id="prompt"
+              rows="3"
+              name="prompt"
+              placeholder="e.g., Web-ready hero image for landing page"
+              class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-700"
+            ></textarea>
+            <button
+              type="button"
+              id="enhanceButton"
+              class="w-full py-2 px-4 bg-purple-600 text-white rounded-md shadow-sm hover:bg-purple-700 transition-all duration-300"
+            >
+              Enhance Prompt
+            </button>
+            <div
+              id="enhanceResult"
+              class="hidden text-sm text-gray-600 bg-gray-100 p-3 rounded-md"
+            ></div>
+          </div>
           <div class="flex flex-col space-y-2">
             <label
               for="upload"
@@ -201,6 +229,22 @@
               <option value="ICO">ICO</option>
               <option value="PDF">PDF</option>
             </select>
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label
+              for="quality"
+              class="block text-sm font-medium text-gray-700"
+              >Quality (JPEG/WEBP)</label
+            >
+            <input
+              id="quality"
+              name="quality"
+              type="number"
+              min="40"
+              max="100"
+              value="90"
+              class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-700"
+            />
           </div>
           <button
             type="submit"
@@ -315,6 +359,47 @@
 
 
 
-    <script src="static/javascript/index.js"></script>
+    <script>
+      const enhanceButton = document.getElementById("enhanceButton");
+      const enhanceResult = document.getElementById("enhanceResult");
+      const promptField = document.getElementById("prompt");
+      const formatField = document.getElementById("format");
+      const qualityField = document.getElementById("quality");
+
+      if (enhanceButton) {
+        enhanceButton.addEventListener("click", async () => {
+          const prompt = promptField ? promptField.value.trim() : "";
+          if (!prompt) {
+            enhanceResult.textContent = "Add a prompt to get recommendations.";
+            enhanceResult.classList.remove("hidden");
+            return;
+          }
+          enhanceButton.disabled = true;
+          enhanceButton.textContent = "Enhancing...";
+          try {
+            const response = await fetch("/prompt-enhance", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ prompt }),
+            });
+            const data = await response.json();
+            if (data.format && formatField) {
+              formatField.value = data.format;
+            }
+            if (qualityField && data.quality) {
+              qualityField.value = data.quality;
+            }
+            enhanceResult.textContent = `${data.format} · Quality ${data.quality} — ${data.reason}`;
+            enhanceResult.classList.remove("hidden");
+          } catch (error) {
+            enhanceResult.textContent = "Unable to enhance prompt right now.";
+            enhanceResult.classList.remove("hidden");
+          } finally {
+            enhanceButton.disabled = false;
+            enhanceButton.textContent = "Enhance Prompt";
+          }
+        });
+      }
+    </script>
   </body>
 </html>

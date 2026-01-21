@@ -382,6 +382,9 @@
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ prompt }),
             });
+            if (!response.ok) {
+              throw new Error("server");
+            }
             const data = await response.json();
             if (data.format && formatField) {
               formatField.value = data.format;
@@ -392,7 +395,11 @@
             enhanceResult.textContent = `${data.format} · Quality ${data.quality} — ${data.reason}`;
             enhanceResult.classList.remove("hidden");
           } catch (error) {
-            enhanceResult.textContent = "Unable to enhance prompt right now.";
+            const errorMessage =
+              error && error.message === "server"
+                ? "Server error while enhancing prompt."
+                : "Network connection failed while enhancing prompt.";
+            enhanceResult.textContent = errorMessage;
             enhanceResult.classList.remove("hidden");
           } finally {
             enhanceButton.disabled = false;

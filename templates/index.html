@@ -395,10 +395,7 @@
             enhanceResult.textContent = `${data.format} · Quality ${data.quality} — ${data.reason}`;
             enhanceResult.classList.remove("hidden");
           } catch (error) {
-            const errorMessage =
-              error && error.message
-                ? error.message
-                : "Network connection failed while enhancing prompt.";
+            const errorMessage = error?.message || "Network error while enhancing prompt.";
             enhanceResult.textContent = errorMessage;
             enhanceResult.classList.remove("hidden");
           } finally {

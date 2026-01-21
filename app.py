@@ -17,7 +17,10 @@ def index():
 @app.route("/prompt-enhance", methods=["POST"])
 def prompt_enhance():
     data = request.get_json(silent=True) or {}
-    suggestion = recommend_settings(data.get("prompt", ""))
+    try:
+        suggestion = recommend_settings(data.get("prompt", ""))
+    except Exception:
+        return jsonify({"error": "Unable to enhance prompt right now."}), 500
     return jsonify(
         {
             "format": suggestion["format"],

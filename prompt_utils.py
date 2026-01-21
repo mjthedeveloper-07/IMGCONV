@@ -1,3 +1,9 @@
+QUALITY_MIN = 40
+QUALITY_MAX = 100
+QUALITY_DEFAULT = 90
+PROMPT_MAX_LENGTH = 300
+
+
 def recommend_settings(prompt):
     prompt_text = (prompt or "").strip().lower()
     recommendations = [
@@ -67,7 +73,7 @@ def build_save_kwargs(image_format, quality_value):
     format_lower = (image_format or "").lower()
     if format_lower not in {"jpeg", "webp"}:
         return {}
-    quality = max(40, min(100, quality))
+    quality = max(QUALITY_MIN, min(QUALITY_MAX, quality))
     save_kwargs = {"quality": quality}
     if format_lower == "jpeg":
         save_kwargs["optimize"] = True

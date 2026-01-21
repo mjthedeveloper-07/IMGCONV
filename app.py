@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 from PIL import Image
 import os
 
-from prompt_utils import recommend_settings, build_save_kwargs
+from prompt_utils import recommend_settings, build_save_kwargs, PROMPT_MAX_LENGTH
 
 app = Flask(__name__)
 
@@ -17,8 +17,13 @@ def index():
 @app.route("/prompt-enhance", methods=["POST"])
 def prompt_enhance():
     data = request.get_json(silent=True) or {}
+    prompt = data.get("prompt", "")
+    if not isinstance(prompt, str):
+        return jsonify({"error": "Prompt must be text."}), 400
+    if len(prompt) > PROMPT_MAX_LENGTH:
+        return jsonify({"error": "Prompt is too long."}), 400
     try:
-        suggestion = recommend_settings(data.get("prompt", ""))
+        suggestion = recommend_settings(prompt)
     except Exception:
         return jsonify({"error": "Unable to enhance prompt right now."}), 500
     return jsonify(

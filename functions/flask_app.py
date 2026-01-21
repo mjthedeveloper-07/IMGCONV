@@ -24,7 +24,11 @@ def prompt_enhance():
     if not isinstance(prompt, str):
         return jsonify({"error": "Prompt must be text."}), 400
     if len(prompt) > PROMPT_MAX_LENGTH:
-        return jsonify({"error": "Prompt is too long."}), 400
+        return jsonify(
+            {
+                "error": f"Prompt exceeds maximum length of {PROMPT_MAX_LENGTH} characters."
+            }
+        ), 400
     try:
         suggestion = recommend_settings(prompt)
     except Exception:

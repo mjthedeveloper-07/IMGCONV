@@ -1,2 +1,4 @@
 Flask
 Pillow
+reportlab==4.4.9
+xlsxwriter==3.2.9

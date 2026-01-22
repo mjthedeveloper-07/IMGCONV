@@ -1,0 +1,31 @@
+{% extends "admin_layout.html" %}
+{% block title %}GST Settings - GM CAR A/C SERVICE &amp; MULTIBRAND BILLING{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>GST Settings</h1>
+</div>
+<form method="post" class="form-block">
+  <div class="grid two">
+    <div>
+      <label>CGST Rate (%)</label>
+      <input type="number" step="0.01" name="gst_cgst_rate" value="{{ settings.gst_cgst_rate }}" />
+    </div>
+    <div>
+      <label>SGST Rate (%)</label>
+      <input type="number" step="0.01" name="gst_sgst_rate" value="{{ settings.gst_sgst_rate }}" />
+    </div>
+    <div>
+      <label>IGST Rate (%)</label>
+      <input type="number" step="0.01" name="gst_igst_rate" value="{{ settings.gst_igst_rate }}" />
+    </div>
+    <div>
+      <label>Default GST Type</label>
+      <select name="gst_default_type">
+        <option value="cgst_sgst" {% if settings.gst_default_type == 'cgst_sgst' %}selected{% endif %}>CGST + SGST</option>
+        <option value="igst" {% if settings.gst_default_type == 'igst' %}selected{% endif %}>IGST</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" class="button">Save GST Settings</button>
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "admin_layout.html" %}
+{% block title %}WhatsApp Settings - GM CAR A/C SERVICE &amp; MULTIBRAND BILLING{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>WhatsApp Settings</h1>
+</div>
+<form method="post" class="form-block">
+  <label>Message Template</label>
+  <textarea name="whatsapp_template" rows="6">{{ settings.whatsapp_template }}</textarea>
+  <p class="hint">Use {{ '{{Customer Name}}' }} and {{ '{{Invoice Number}}' }} placeholders.</p>
+  <button type="submit" class="button">Save Template</button>
+</form>
+{% endblock %}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}GM CAR A/C SERVICE &amp; MULTIBRAND BILLING{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/admin.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span>GM CAR A/C SERVICE &amp; MULTIBRAND BILLING</span>
+        </div>
+        <nav>
+          <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+          <a href="{{ url_for('admin_invoices') }}">Invoices</a>
+          <a href="{{ url_for('admin_customers') }}">Customers</a>
+          <a href="{{ url_for('admin_services') }}">Services</a>
+          <a href="{{ url_for('admin_gst_settings') }}">GST Settings</a>
+          <a href="{{ url_for('admin_reports') }}">Reports</a>
+          <a href="{{ url_for('admin_company_profile') }}">Company Profile</a>
+          <a href="{{ url_for('admin_whatsapp_settings') }}">WhatsApp Settings</a>
+          <a href="{{ url_for('admin_backup_export') }}">Backup &amp; Export</a>
+        </nav>
+        <a href="{{ url_for('admin_logout') }}" class="logout">Logout</a>
+      </aside>
+      <main class="content">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </body>
+</html>

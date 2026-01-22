@@ -1,0 +1,48 @@
+{% extends "admin_layout.html" %}
+{% block title %}Invoices - GM CAR A/C SERVICE &amp; MULTIBRAND BILLING{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Invoices</h1>
+  <a class="button" href="{{ url_for('admin_invoice_new') }}">Create Invoice</a>
+</div>
+<form class="filter-bar" method="get">
+  <input type="text" name="q" placeholder="Search invoice or customer" value="{{ search_query }}" />
+  <select name="status">
+    <option value="">All Statuses</option>
+    <option value="Unpaid" {% if status_filter == 'Unpaid' %}selected{% endif %}>Unpaid</option>
+    <option value="Partially Paid" {% if status_filter == 'Partially Paid' %}selected{% endif %}>Partially Paid</option>
+    <option value="Paid" {% if status_filter == 'Paid' %}selected{% endif %}>Paid</option>
+  </select>
+  <button type="submit">Filter</button>
+</form>
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Invoice #</th>
+      <th>Date</th>
+      <th>Customer</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for invoice in invoices %}
+    <tr>
+      <td>{{ invoice.invoice_number }}</td>
+      <td>{{ invoice.date }}</td>
+      <td>{{ invoice.customer_name or '' }}</td>
+      <td>₹{{ invoice.total }}</td>
+      <td>{{ invoice.payment_status }}</td>
+      <td>
+        <a href="{{ url_for('admin_invoice_view', invoice_id=invoice.id) }}">View</a>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="6">No invoices found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "admin_layout.html" %}
+{% block title %}Reports - GM CAR A/C SERVICE &amp; MULTIBRAND BILLING{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Monthly GST Report</h1>
+</div>
+<form method="post" class="form-inline">
+  <label>Select Month</label>
+  <input type="month" name="month" value="{{ month_value or '' }}" required />
+  <button type="submit">Generate</button>
+</form>
+{% if report %}
+<div class="report-card">
+  <h2>Report Summary - {{ report.month }}</h2>
+  <div class="report-grid">
+    <div><span>Taxable Value</span><strong>₹{{ report.taxable_value }}</strong></div>
+    <div><span>CGST Total</span><strong>₹{{ report.cgst_total }}</strong></div>
+    <div><span>SGST Total</span><strong>₹{{ report.sgst_total }}</strong></div>
+    <div><span>IGST Total</span><strong>₹{{ report.igst_total }}</strong></div>
+    <div><span>Total GST</span><strong>₹{{ report.total_gst }}</strong></div>
+    <div><span>Revenue</span><strong>₹{{ report.revenue }}</strong></div>
+  </div>
+  <div class="actions">
+    <a class="button" href="{{ url_for('admin_report_pdf', month=report.month) }}">Export PDF</a>
+    <a class="button" href="{{ url_for('admin_report_excel', month=report.month) }}">Export Excel</a>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

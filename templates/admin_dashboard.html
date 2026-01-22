@@ -1,0 +1,25 @@
+{% extends "admin_layout.html" %}
+{% block title %}Dashboard - GM CAR A/C SERVICE &amp; MULTIBRAND BILLING{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Dashboard</h1>
+</div>
+<div class="stats-grid">
+  <div class="stat-card">
+    <h3>Total Invoices</h3>
+    <p>{{ total_invoices }}</p>
+  </div>
+  <div class="stat-card">
+    <h3>Total Customers</h3>
+    <p>{{ total_customers }}</p>
+  </div>
+  <div class="stat-card">
+    <h3>Total Revenue</h3>
+    <p>₹{{ total_revenue }}</p>
+  </div>
+  <div class="stat-card">
+    <h3>Pending Payments</h3>
+    <p>{{ unpaid_count }}</p>
+  </div>
+</div>
+{% endblock %}

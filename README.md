@@ -1,39 +1,38 @@
-# imgconv
+# GM CAR A/C SERVICE & MULTIBRAND BILLING
 
-imgconv is a simple image conversion web app built with Python Flask and Tailwind CSS. It allows users to upload an image, select a desired format, and convert the image to that format.
+A full-stack billing system for an Indian automobile A/C and multibrand service center. The system includes invoice generation, GST handling, PDF storage, WhatsApp sharing, admin controls, and monthly GST reports.
 
 ## Features
-- Upload images in various formats.
-- Convert images to different formats (BMP, EPS, GIF, IM, JPEG, MSP, PCX, PNG, PPM, TIFF).
-- Download the converted image.
 
-## Installation
+- Admin login and secure dashboard
+- Invoice creation with GST toggle and auto-numbering (GM-INV-0001)
+- Strict printable invoice layout
+- Payment tracking (Unpaid / Partially Paid / Paid)
+- Automatic PDF generation and local storage
+- WhatsApp invoice sharing with template messaging
+- Monthly GST reports with PDF and Excel exports
+- Backup & export tools for invoices
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/15455154/IMGCONV.git
-    cd IMGCONV
-    ```
+## Getting Started
 
-2. Create a virtual environment and activate it:
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-3. Install the required dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
+2. Run the Flask application:
+   ```bash
+   python app.py
+   ```
 
-## Usage
+3. Open `http://localhost:5500` in your browser.
 
-1. Run the Flask application:
-    ```bash
-    python app.py
-    ```
+## Default Admin Login
 
-2. Open your web browser and navigate to `http://localhost:5000`.
+- Username: `admin`
+- Password: `admin123`
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Storage
+
+- SQLite database stored in `data/billing.db`
+- Invoice PDFs stored in `invoices/YYYY/MM/GM-INV-0001.pdf`

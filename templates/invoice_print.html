@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice {{ invoice.invoice_number }}</title>
+    <link rel="stylesheet" href="/static/css/invoice.css" />
+  </head>
+  <body>
+    <div class="invoice">
+      <div class="header">
+        <div class="header-left">
+          <div class="company-name">{{ settings.company_name }}</div>
+          <div>{{ settings.company_address_line1 }}</div>
+          <div>{{ settings.company_address_line2 }}</div>
+          <div>Phone: {{ settings.company_phone }}</div>
+          <div>Email: {{ settings.company_email }}</div>
+          <div>Website: {{ settings.company_website }}</div>
+        </div>
+        <div class="header-right">
+          <img src="/static/img/logo.png" alt="Company Logo" />
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="details">
+        <div class="details-left">
+          <div class="section-title">Invoice To:</div>
+          <div>{{ customer.name }}</div>
+          <div>{{ customer.phone }}</div>
+          <div>{{ customer.vehicle }}</div>
+          <div>{{ customer.vehicle_number }}</div>
+        </div>
+        <div class="details-right">
+          <div class="section-title">Invoice Details:</div>
+          <div>Invoice #: {{ invoice.invoice_number }}</div>
+          <div>Date: {{ invoice.date }}</div>
+        </div>
+      </div>
+      <div class="table">
+        <div class="row header-row">
+          <div class="description">Description</div>
+          <div class="amount">Amount</div>
+        </div>
+        {% for item in items %}
+        <div class="row">
+          <div class="description">{{ item.description }}</div>
+          <div class="amount numeric">₹{{ item.amount }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="totals">
+        {% if invoice.gst_enabled %}
+        <div class="row">
+          <div class="label">Subtotal</div>
+          <div class="value numeric">₹{{ invoice.subtotal }}</div>
+        </div>
+        {% if invoice.gst_type == 'igst' %}
+        <div class="row">
+          <div class="label">IGST ({{ invoice.igst_rate }} %)</div>
+          <div class="value numeric">₹{{ invoice.igst_amount }}</div>
+        </div>
+        {% else %}
+        <div class="row">
+          <div class="label">CGST ({{ invoice.cgst_rate }} %)</div>
+          <div class="value numeric">₹{{ invoice.cgst_amount }}</div>
+        </div>
+        <div class="row">
+          <div class="label">SGST ({{ invoice.sgst_rate }} %)</div>
+          <div class="value numeric">₹{{ invoice.sgst_amount }}</div>
+        </div>
+        {% endif %}
+        {% endif %}
+        <div class="row total">
+          <div class="label">Total</div>
+          <div class="value numeric">₹{{ invoice.total }}</div>
+        </div>
+      </div>
+      <div class="footer">
+        <div>Thank you for choosing our service!</div>
+        <div>"No Warranty and No Guarantee"</div>
+      </div>
+    </div>
+  </body>
+</html>

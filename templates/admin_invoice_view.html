@@ -1,0 +1,70 @@
+{% extends "admin_layout.html" %}
+{% block title %}Invoice {{ invoice.invoice_number }} - GM CAR A/C SERVICE &amp; MULTIBRAND BILLING{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Invoice {{ invoice.invoice_number }}</h1>
+  <div class="actions">
+    <a class="button" href="{{ url_for('admin_invoice_print', invoice_id=invoice.id) }}" target="_blank">Print View</a>
+    <a class="button" href="{{ url_for('admin_invoice_pdf', invoice_id=invoice.id) }}">Download PDF</a>
+    <a class="button" href="{{ url_for('admin_invoice_whatsapp', invoice_id=invoice.id) }}">Share on WhatsApp</a>
+  </div>
+</div>
+<div class="details-grid">
+  <div>
+    <h3>Customer</h3>
+    <p>{{ customer.name }}</p>
+    <p>{{ customer.phone }}</p>
+    <p>{{ customer.vehicle }}</p>
+    <p>{{ customer.vehicle_number }}</p>
+  </div>
+  <div>
+    <h3>Invoice Details</h3>
+    <p>Date: {{ invoice.date }}</p>
+    <p>Status: {{ invoice.payment_status }}</p>
+    <p>Payment Method: {{ invoice.payment_method }}</p>
+  </div>
+</div>
+<h2>Items</h2>
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.description }}</td>
+      <td>{{ item.amount | currency }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="totals">
+  {% if invoice.gst_enabled %}
+  <p>Subtotal: ₹{{ invoice.subtotal_display }}</p>
+  {% if invoice.gst_type == 'igst' %}
+  <p>IGST ({{ invoice.igst_rate_display }}%): ₹{{ invoice.igst_amount_display }}</p>
+  {% else %}
+  <p>CGST ({{ invoice.cgst_rate_display }}%): ₹{{ invoice.cgst_amount_display }}</p>
+  <p>SGST ({{ invoice.sgst_rate_display }}%): ₹{{ invoice.sgst_amount_display }}</p>
+  {% endif %}
+  {% endif %}
+  <p class="total">Total: ₹{{ invoice.total_display }}</p>
+</div>
+<div class="totals">
+  <p>Amount Paid: ₹{{ invoice.amount_paid_display }}</p>
+  <p>Balance Amount: ₹{{ invoice.balance_display }}</p>
+</div>
+<h2>Update Payment</h2>
+<form method="post" action="{{ url_for('admin_invoice_payment', invoice_id=invoice.id) }}" class="form-inline">
+  <input type="number" step="0.01" name="amount_paid" value="{{ invoice.amount_paid }}" />
+  <select name="payment_method">
+    <option value="Cash" {% if invoice.payment_method == 'Cash' %}selected{% endif %}>Cash</option>
+    <option value="UPI" {% if invoice.payment_method == 'UPI' %}selected{% endif %}>UPI</option>
+    <option value="Card" {% if invoice.payment_method == 'Card' %}selected{% endif %}>Card</option>
+  </select>
+  <button type="submit">Update</button>
+</form>
+{% endblock %}

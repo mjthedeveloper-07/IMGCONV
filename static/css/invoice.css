@@ -1,0 +1,110 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: #000;
+  font-family: "Arial", sans-serif;
+}
+
+.invoice {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 18mm;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header-left {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.header-left .company-name {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.header-right img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.divider {
+  border-top: 1px solid #000;
+  margin: 8px 0 12px;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.details .section-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.table {
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+.table .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.table .header-row {
+  font-weight: 700;
+  border-bottom: 1px solid #000;
+  padding-bottom: 6px;
+}
+
+.description {
+  width: 70%;
+}
+
+.amount {
+  width: 30%;
+  text-align: right;
+}
+
+.totals {
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+.totals .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+}
+
+.totals .total {
+  font-weight: 700;
+}
+
+.footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.numeric {
+  letter-spacing: 0;
+  word-spacing: 0;
+  white-space: nowrap;
+  text-align: right;
+}

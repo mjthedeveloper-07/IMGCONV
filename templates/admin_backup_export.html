@@ -1,0 +1,14 @@
+{% extends "admin_layout.html" %}
+{% block title %}Backup & Export - GM CAR A/C SERVICE & MULTIBRAND BILLING{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Backup & Export</h1>
+</div>
+<div class="report-card">
+  <p>Export all invoices for offline backup or accounting.</p>
+  <div class="actions">
+    <a class="button" href="{{ url_for('export_invoices_pdf') }}">Download Invoices PDF</a>
+    <a class="button" href="{{ url_for('export_invoices_excel') }}">Download Invoices Excel</a>
+  </div>
+</div>
+{% endblock %}
